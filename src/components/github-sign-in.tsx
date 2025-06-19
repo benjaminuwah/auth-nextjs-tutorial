@@ -1,20 +1,24 @@
-import { signIn } from "@/lib/auth";
+"use client";
+
+import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Github } from "@/components/ui/github";
+import { Github } from "lucide-react";
 
 const GithubSignIn = () => {
+  const handleSignIn = () => {
+    signIn("github", { callbackUrl: "/dashboard" });
+  };
+
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signIn("github");
-      }}
+    <Button 
+      onClick={handleSignIn} 
+      variant="outline" 
+      className="w-full"
+      type="button"
     >
-      <Button className="w-full" variant="outline">
-        <Github />
-        Continue with GitHub
-      </Button>
-    </form>
+      <Github className="mr-2 h-4 w-4" />
+      Continue with GitHub
+    </Button>
   );
 };
 
